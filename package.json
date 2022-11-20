@@ -1,0 +1,22 @@
+{
+  "name": "pharmacy-end",
+  "version": "1.0.0",
+  "description": "Pharmacy backend app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pintu900/Pharmacy-end.git"
+  },
+  "author": "Pintu Sah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pintu900/Pharmacy-end/issues"
+  },
+  "homepage": "https://github.com/Pintu900/Pharmacy-end#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
