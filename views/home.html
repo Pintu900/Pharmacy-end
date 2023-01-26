@@ -1,30 +1,166 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Data List</title>
+    <style>
+        body {
+  background-color: #f2f2f2;
+}
 
-<head>
-    <title>Pharmacy</title>
+nav {
+  background-color: #333;
+  color: #fff;
+}
 
-</head>
+.card {
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
 
-<body>
-    <div id="app">
-        
-    </div>
-    <script>
-       fetch('https://shivam-medicos.onrender.com/api/categories')
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data)
-    let str="";
-    data.forEach(element => {
-        console.log(element);
-     str = str+" "+element.name;
-    });
+.card-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
 
-    document.getElementById("app").innerText=str;
-  });
- 
+.card-text {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.delete-btn {
+  float: right;
+  margin-top: -35px;
+}
+
+#searchInput {
+  border-radius: 25px;
+  padding: 10px 20px;
+  border: none;
+  font-size: 18px;
+  width: 300px;
+  margin-right: 10px;
+}
+
+#searchBtn {
+  border-radius: 25px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  font-size: 18px;
+}
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">Data List</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/register">Link</a>
+              </li>
+            </ul>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              id="searchInput"
+            />
+            <button
+              class="btn btn-outline-success my-2 my-sm-0"
+              type="submit"
+              id="searchBtn"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="row" id="dataList"></div>
+      </div>
+      <script>
+        // Fetch data from API
+        fetch("https://shivam-medicos.onrender.com/api/categories")
+          .then((response) => response.json())
+          .then((data) => {
+            let searchInput = document.getElementById("searchInput");
+            let searchBtn = document.getElementById("searchBtn");
+            let dataList = document.getElementById("dataList");
+  
+            // Render data as cards
+            let renderCards = (filteredData) => {
+              dataList.innerHTML = "";
+              filteredData.forEach((item) => {
+                let col = document.createElement("div");
+                col.classList.add("col-md-4");
+                let card = document.createElement("div");
+                card.classList.add("card");
+                let cardBody = document.createElement("div");
+                cardBody.classList.add("card-body");
+                let title = document.createElement("h5");
+                title.classList.add("card-title");
+                title.innerHTML = item.name;
+                let description = document.createElement("p");
+                description.classList.add("card-text");
+                description.innerHTML = item.email;
+                let deleteBtn = document.createElement("button");
+                deleteBtn.classList.add("btn", "btn-danger", "delete-btn");
+                deleteBtn.innerHTML = "Delete";
+                deleteBtn.addEventListener("click", function () {
+                  // Make DELETE request to API
+                  fetch(`https://shivam-medicos.onrender.com/api/categories/${item._id}`, {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  })
+                    .then((response) => response.json())
+                    .then((data) => {
+                      // remove card from UI
+                      col.remove();
+                    })
+                    .catch((error) => console.log(error));
+              });
+              cardBody.appendChild(title);
+              cardBody.appendChild(description);
+              cardBody.appendChild(deleteBtn);
+              card.appendChild(cardBody);
+              col.appendChild(card);
+              dataList.appendChild(col);
+            });
+          };
+
+          // Search function
+          searchBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            let searchTerm = searchInput.value.toLowerCase();
+            let filteredData = data.filter((item) =>
+              item.name.toLowerCase().includes(searchTerm)
+            );
+            renderCards(filteredData);
+          });
+          renderCards(data);
+        });
     </script>
-</body>
-
+  </body>
 </html>
