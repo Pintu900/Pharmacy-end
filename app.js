@@ -8,7 +8,6 @@ const cors = require('cors');
 require('dotenv').config()
 
 const app = express();
-app.use(cors());
 
 mongoose.connect(process.env.MONGO_DB).then(()=>{
     console.log('DB connected')
@@ -16,6 +15,7 @@ mongoose.connect(process.env.MONGO_DB).then(()=>{
     console.log('error')
 })
 
+app.use(cors());
 app.use(express.json())
 
 app.get('/', (req, res) => {
