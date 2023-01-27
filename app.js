@@ -1,10 +1,14 @@
 const path =require('path');
 const express = require('express');
 const mongoose = require('mongoose');
-const categories = require("./Routes/categories")
+const categories = require("./Routes/categories");
+const users = require("./Routes/users");
+const cors = require('cors');
+
 require('dotenv').config()
 
 const app = express();
+app.use(cors());
 
 mongoose.connect(process.env.MONGO_DB).then(()=>{
     console.log('DB connected')
@@ -20,7 +24,11 @@ app.get('/', (req, res) => {
 app.get('/register', (req, res) => {
   res.status(200).sendFile(path.join(__dirname,'views','register.html'))
 })
+app.get('/login', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname,'views','login.html'))
+})
 app.use(categories);
+app.use(users.router);
 
 
 

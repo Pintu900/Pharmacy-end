@@ -1,6 +1,7 @@
 const express = require('express');
 const Joi = require('joi');
 const mongoose = require('mongoose');
+const users = require("./users");
 
 const router = express.Router();
 
@@ -16,12 +17,12 @@ const Category = mongoose.model('Category',categorySchema);
 //   {id : 3, name : 'Photography'}
 // ]
 
-router.get('/api/categories',async (req,res) => {
+router.get('/api/categories',users.checkAuth,async (req,res) => {
   let categories = await Category.find();
   res.send(categories);
 })
 
-router.post('/api/categories', async (req,res) => {
+router.post('/api/categories',users.checkAuth, async (req,res) => {
   const {error} = validateData(req.body);
   
   if(error){
@@ -37,7 +38,7 @@ router.post('/api/categories', async (req,res) => {
   res.status(200).send(category);
 })
 
-router.put('/api/categories/:id', async (req, res) => {
+router.put('/api/categories/:id',users.checkAuth, async (req, res) => {
   const {error} = validateData(req.body);
   if(error){
     res.status(400).send(error.details[0].message);
@@ -49,7 +50,7 @@ router.put('/api/categories/:id', async (req, res) => {
   res.status(200).send(category);
 })
 
-router.delete('/api/categories/:id', async (req,res) => {
+router.delete('/api/categories/:id',users.checkAuth, async (req,res) => {
   const category = await Category.findByIdAndRemove(req.params.id);
   if(!category) return res.status(404).send('The category with the given id is not found.');
   res.status(200).send(category);

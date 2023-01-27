@@ -16,10 +16,13 @@
             }
             console.log(payload);
             // Use fetch to post the JSON data
-            fetch('https://shivam-medicos.onrender.com/api/categories', {
+            const token = localStorage.getItem('token');
+            fetch('/api/categories', {
               method: 'POST',
               body: JSON.stringify(payload),
-              headers: { 'Content-Type': 'application/json' }
+              headers: { 'Content-Type': 'application/json',
+              Authorization: token
+            }
             })
             .then(response => response.json())
             .then(data => {
