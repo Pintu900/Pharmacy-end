@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Login Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
   rel="stylesheet"
@@ -141,10 +142,12 @@ height: 100%;
   </section>
   <script>
     // JavaScript code to handle form submission and fetch call
-    const token = localStorage.getItem('token');
-    if(token){
+    const token1 = localStorage.getItem('token');
+    if(token1){
+    if(!isTokenExpired(token1)){
         window.location.href = '/';
     }
+}
     const loginForm = document.getElementById('login-form');
     const errorMessage = document.getElementById('error');
     
@@ -187,6 +190,21 @@ height: 100%;
           console.log(error.body)
         });
     });
+
+    function isTokenExpired(token) {
+    // Decode the token
+    const parts = token.split(".");
+const decoded = JSON.parse(new TextDecoder("utf-8").decode(new Uint8Array(atob(parts[1]).split("").map(function(c) {
+    return c.charCodeAt(0);
+}))));
+    // Get the current time
+    const currentTime = Math.floor(Date.now() / 1000);
+    // Check if the token has expired
+    if (decoded.exp < currentTime) {
+        return true;
+    }
+    return false;
+}
   </script>
 </body>
 </html>

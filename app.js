@@ -12,7 +12,7 @@ const app = express();
 mongoose.connect(process.env.MONGO_DB).then(()=>{
     console.log('DB connected')
 }).catch(err => {
-    console.log('error')
+    console.log(err.message)
 })
 
 app.use(cors());
