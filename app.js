@@ -27,6 +27,9 @@ app.get('/register', (req, res) => {
 app.get('/login', (req, res) => {
   res.status(200).sendFile(path.join(__dirname,'views','login.html'))
 })
+app.get('/lavender', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname,'views','hotel.html'))
+})
 app.use(categories);
 app.use(users.router);
 
