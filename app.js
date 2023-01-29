@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const categories = require("./Routes/categories");
 const users = require("./Routes/users");
+const products = require("./Routes/products");
 const cors = require('cors');
 
 require('dotenv').config()
@@ -31,6 +32,7 @@ app.get('/lavender', (req, res) => {
   res.status(200).sendFile(path.join(__dirname,'views','hotel.html'))
 })
 app.use(categories);
+app.use(products);
 app.use(users.router);
 
 
