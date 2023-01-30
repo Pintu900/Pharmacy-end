@@ -38,6 +38,11 @@ router.post('/api/products', async (req,res) => {
   res.status(200).send(product);
 })
 
+router.get('/api/products/:id', async (req, res) => {
+  let product = await Product.findById(req.params.id)
+  res.send(product);
+})
+
 // router.put('/api/categories/:id',users.checkAuth, async (req, res) => {
 //   const {error} = validateData(req.body);
 //   if(error){

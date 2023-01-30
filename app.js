@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const categories = require("./Routes/categories");
 const users = require("./Routes/users");
 const products = require("./Routes/products");
+const payment = require("./Routes/payment");
 const cors = require('cors');
 
 require('dotenv').config()
@@ -20,7 +21,7 @@ app.use(cors());
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname,'views','home.html'))
+  res.status(200).sendFile(path.join(__dirname,'views','hotel.html'))
 })
 app.get('/register', (req, res) => {
   res.status(200).sendFile(path.join(__dirname,'views','register.html'))
@@ -29,10 +30,14 @@ app.get('/login', (req, res) => {
   res.status(200).sendFile(path.join(__dirname,'views','login.html'))
 })
 app.get('/lavender', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname,'views','hotel.html'))
+  res.status(200).sendFile(path.join(__dirname,'views','home.html'))
+})
+app.get('/product', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname,'views','product.html'))
 })
 app.use(categories);
 app.use(products);
+app.use(payment);
 app.use(users.router);
 
 

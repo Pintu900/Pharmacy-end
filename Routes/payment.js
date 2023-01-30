@@ -1,16 +1,14 @@
 const express = require('express');
 const Razorpay = require('razorpay');
 const bodyParser = require('body-parser');
+require('dotenv').config()
 
 const router = express.Router();
 
 var instance = new Razorpay({
-  key_id: '',
-  key_secret: '',
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret:process.env.RAZORPAY_SECRET_KEY,
 });
-router.get('/', (req, res) => {
-  res.status(200).sendFile('standard.html', { root: __dirname });
-})
 router.post('/create/orderid', (req, res) => {
   var options = {
     amount: req.body.amount,  // amount in the smallest currency unit
@@ -28,7 +26,7 @@ router.post("/api/payment/verify", (req, res) => {
   let body = req.body.response.razorpay_order_id + "|" + req.body.response.razorpay_payment_id;
 
   var crypto = require("crypto");
-  var expectedSignature = crypto.createHmac('sha256', '')
+  var expectedSignature = crypto.createHmac('sha256', 'YyWVUALJ6uDboAE2wIcUqz0O')
     .update(body.toString())
     .digest('hex');
   console.log("sig received ", req.body.response.razorpay_signature);
@@ -38,3 +36,5 @@ router.post("/api/payment/verify", (req, res) => {
     response = { "signatureIsValid": "true" }
   res.send(response);
 });
+
+module.exports = router;
