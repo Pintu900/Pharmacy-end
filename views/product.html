@@ -305,8 +305,8 @@ console.log(amount);
           console.error("Invalid check-in or check-out date.");
           return;
         }
-        if (checkoutDate < checkinDate) {
-          alert("Check-out date cannot be less than check-in date.");
+        if (checkoutDate <= checkinDate) {
+          alert("Check-out date cannot be less than or equal to check-in date.");
           checkout.value = "";
           return;
         }
