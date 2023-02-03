@@ -9,7 +9,7 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   </head>
   <body>
-   <nav class="navbar navbar-expand-lg bg-light mb-3">
+   <nav class="navbar navbar-expand-lg bg-light shadow-sm p-3 bg-body rounded fixed-top">
   <div class="container">
     <a class="navbar-brand" href="/">
         <img src="https://dynamic.brandcrowd.com/asset/logo/a2ea32a5-2049-44d3-813b-6e895d00a61f/logo-search-grid-1x?logoTemplateVersion=1&v=637662604811930000" alt="Logo" width="36" height="30" class="d-inline-block align-text-top">
@@ -32,13 +32,14 @@
           <a class="nav-link active" aria-current="page" href="#">Blog</a>
         </li>
       </ul>
-       <a href="/login"><button class="btn btn-outline-success me-2" type="submit">Log In</button></a> 
-      <button class="btn btn-success me-2" type="submit"> Sign up</button> 
+      <div id="log-in">
+      
+    </div>
     </div>
   </div>
 </nav>
-
-    <div class="container mb-5">
+<br><br>
+    <div class="container my-5">
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-6 d-flex justify-content-end flex-column ">  
   <div class="p-2"><h1 class="display-5">Savor the comfort of a home away from home</h1></div>
@@ -114,6 +115,18 @@
   </footer>
 </div>
 <script>
+const token1 = localStorage.getItem('token');
+console.log(token1);
+let logsec = document.getElementById('log-in');
+console.log(logsec);
+if(token1){
+  var card =` <button class="btn btn-success me-2" id="logout">Log Out</button>`
+  logsec.innerHTML=card;
+}else{
+  var card =`<a href="/login"><button class="btn btn-outline-success me-2" type="submit">Log In</button></a> 
+      <button class="btn btn-success me-2" type="submit"> Sign up</button> `
+    logsec.innerHTML=card;
+}
   var amount ;
   var orderId ;
 fetch('/api/products', {
@@ -142,6 +155,12 @@ const encodedData = encodeURIComponent(JSON.stringify(jsonData));
     document.getElementById('dataList').innerHTML = cards;
     
   });
+  let logout = document.getElementById("logout");
+        logout.addEventListener("click",(e)=>{
+          e.preventDefault();
+          localStorage.removeItem("token");
+          window.location.href = '/';
+        })
 </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

@@ -3,143 +3,81 @@
 <head>
   <title>Login Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  rel="stylesheet"
-/>
-<!-- Google Fonts -->
-<link
-  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-  rel="stylesheet"
-/>
-<!-- MDB -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css"
-  rel="stylesheet"
-/>
-<!-- MDB -->
-<script
-  type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"
-></script>
+     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<style>
-    .divider:after,
-.divider:before {
-content: "";
-flex: 1;
-height: 1px;
-background: #eee;
-}
-.h-custom {
-height: calc(100% - 73px);
-}
-@media (max-width: 450px) {
-.h-custom {
-height: 100%;
-}
-}
-.input-group.md-form.form-sm.form-3 input {
-    border: 1px solid #bdbdbd;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-}
-.input-group.md-form.form-sm.form-3 input[type=text]:focus:not([readonly]).amber-border  {
-    border: 1px solid #ffca28;
-    box-shadow: none;
-}
-</style>
+
 <body>
-  <section class="vh-100">
-    <div class="container-fluid h-custom">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-md-9 col-lg-6 col-xl-5">
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-            class="img-fluid" alt="Sample image">
-        </div>
-        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-          <form id="login-form">
-            <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-              <p class="lead fw-normal mb-0 me-3">Sign in with</p>
-              <button type="button" class="btn btn-primary btn-floating mx-1">
-                <i class="fab fa-facebook-f"></i>
-              </button>
+  <!--
+  This example requires some changes to your config:
   
-              <button type="button" class="btn btn-primary btn-floating mx-1">
-                <i class="fab fa-twitter"></i>
-              </button>
-  
-              <button type="button" class="btn btn-primary btn-floating mx-1">
-                <i class="fab fa-linkedin-in"></i>
-              </button>
-            </div>
-  
-            <div class="divider d-flex align-items-center my-4">
-              <p class="text-center fw-bold mx-3 mb-0">Or</p>
-            </div>
-  
-            <!-- Email input -->
-            <div class="form-outline mb-4">
-              <input type="text" id="form3Example3" class="form-control form-control-lg"
-                placeholder="Enter a valid email address" />
-              <label class="form-label" for="form3Example3">Email address</label>
-            </div>
-  
-            <!-- Password input -->
-            <div class="form-outline mb-3">
-              <input type="password" id="form3Example4" class="form-control form-control-lg"
-                placeholder="Enter password" />
-              <label class="form-label" for="form3Example4">Password</label>
-            </div>
-  
-            <div class="d-flex justify-content-between align-items-center">
-              <!-- Checkbox -->
-              <div class="form-check mb-0">
-                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                <label class="form-check-label" for="form2Example3">
-                  Remember me
-                </label>
-              </div>
-              <a href="#!" class="text-body">Forgot password?</a>
-            </div>
-  
-            <div class="text-center text-lg-start mt-4 pt-2">
-              <button type="submit" class="btn btn-primary btn-lg"
-                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-              <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                  class="link-danger">Register</a></p>
-            </div>
-  
-          </form>
-        </div>
-      </div>
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
+<!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full bg-gray-50">
+  <body class="h-full">
+  ```
+-->
+<div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-md space-y-8">
+    <div>
+      <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+      <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        Or
+        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">start your 14-day free trial</a>
+      </p>
     </div>
-    <div
-      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-      <!-- Copyright -->
-      <div class="text-white mb-3 mb-md-0">
-        Copyright © 2020. All rights reserved.
+    <form class="mt-8 space-y-6" action="/api/login" method="POST" id="login-form">
+      <input type="hidden" name="remember" value="true">
+      <div class="-space-y-px rounded-md shadow-sm">
+        <div>
+          <label for="email-address" class="sr-only">Email address</label>
+          <input id="email-address" name="email" type="text" autocomplete="text" required class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Email address">
+        </div>
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Password">
+        </div>
       </div>
-      <!-- Copyright -->
-  
-      <!-- Right -->
+
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+          <label for="remember-me" class="ml-2 block text-sm text-gray-900">Remember me</label>
+        </div>
+
+        <div class="text-sm">
+          <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
+        </div>
+      </div>
+
       <div>
-        <a href="#!" class="text-white me-4">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="#!" class="text-white me-4">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="#!" class="text-white me-4">
-          <i class="fab fa-google"></i>
-        </a>
-        <a href="#!" class="text-white">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
+        <button type="submit" class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <!-- Heroicon name: mini/lock-closed -->
+            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+            </svg>
+          </span>
+          Sign in
+        </button>
       </div>
-      <!-- Right -->
-    </div>
-  </section>
+    </form>
+  </div>
+</div>
+
   <script>
     // JavaScript code to handle form submission and fetch call
     const token1 = localStorage.getItem('token');
@@ -153,8 +91,8 @@ height: 100%;
     
     loginForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      const email = document.getElementById('form3Example3').value;
-      const password = document.getElementById('form3Example4').value;
+      const email = document.getElementById('email-address').value;
+      const password = document.getElementById('password').value;
       
            // Create a user object to send in the fetch call
            const user = {
